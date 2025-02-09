@@ -30,8 +30,11 @@ func main() {
 		LangStrategy: langStrategy,
 	}
 
+	// 创建执行器
+	executer := &core.Executer{Generator: generator}
+
 	// 生成代码
-	if err := generator.Generate(config); err != nil {
+	if err := executer.Generator.Generate(config); err != nil {
 		panic(fmt.Errorf("failed to generate code: %w", err))
 	}
 
