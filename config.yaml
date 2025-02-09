@@ -1,0 +1,11 @@
+database:
+  type: mysql
+  dsn: "root:psyhygge@tcp(localhost:3306)/go_gateway?charset=utf8mb4&parseTime=True&loc=Local"
+output:
+  language: java # go java
+  models_dir: ./output_models
+  naming_style: PascalCase # camelCase 或 PascalCase
+  file_naming_style: camelCase # camelCase 或 snakeCase
+  tables:   # 可选：指定要生成的表
+    - gateway_service_grpc_rule
+    - gateway_service_access_control
