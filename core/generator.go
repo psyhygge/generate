@@ -48,6 +48,8 @@ func getFileName(fileNamingStyle, tableName string) string {
 	switch fileNamingStyle {
 	case "camelCase":
 		return utils.ToCamelCase(tableName, "camelCase")
+	case "PascalCase":
+		return utils.ToCamelCase(tableName, "PascalCase")
 	case "snakeCase":
 		return utils.ToSnakeCase(tableName)
 	default:
@@ -55,24 +57,39 @@ func getFileName(fileNamingStyle, tableName string) string {
 	}
 }
 
+func getFileModel(fileModel string) string {
+	switch fileModel {
+	case "entity":
+		return ""
+	default:
+		return utils.ToCamelCase(fileModel, "PascalCase")
+	}
+}
+
 func (cg *CodeGenerator) generateModelFile(config *Config, tableName string, columns []db.ColumnInfo) {
 
+	model := cg.LangStrategy.GetModelTemplateData(config.Output.FileModel)
+	if model == "" {
+		fmt.Println("model is empty")
+		return
+	}
+
 	data := ModelTemplateData{
-		PackageName: "models",
+		PackageName: config.Output.PackageName,
 		StructName:  utils.ToCamelCase(tableName, "PascalCase"),
 		TableName:   tableName,
 		Fields:      cg.LangStrategy.GetFields(columns, config.Output.NamingStyle),
 	}
 
-	os.MkdirAll(config.Output.ModelsDir, os.ModePerm)
-	fileName := fmt.Sprintf("%s/%s%s", config.Output.ModelsDir, getFileName(config.Output.FileNamingStyle, tableName), cg.LangStrategy.GetFileSuffix())
+	os.MkdirAll(config.Output.ModelsDir+"/"+config.Output.FileModel, os.ModePerm)
+	fileName := fmt.Sprintf("%s/%s/%s%s%s", config.Output.ModelsDir, config.Output.FileModel, getFileName(config.Output.FileNamingStyle, tableName), getFileModel(config.Output.FileModel), cg.LangStrategy.GetFileSuffix())
 	file, err := os.Create(fileName)
 	if err != nil {
 		panic(err)
 	}
 	defer file.Close()
 
-	tmpl := template.Must(template.New("model").Parse(cg.LangStrategy.GetModelTemplateData()))
+	tmpl := template.Must(template.New("model").Parse(model))
 	err = tmpl.Execute(file, data)
 	if err != nil {
 		panic(fmt.Errorf("failed to generate model: %w", err))

@@ -13,6 +13,8 @@ type Config struct {
 	} `yaml:"database"`
 	Output struct {
 		Language        string   `yaml:"language"`
+		PackageName     string   `yaml:"package_name"`
+		FileModel       string   `yaml:"file_model"`
 		ModelsDir       string   `yaml:"models_dir"`
 		NamingStyle     string   `yaml:"naming_style"`
 		FileNamingStyle string   `yaml:"file_naming_style"`

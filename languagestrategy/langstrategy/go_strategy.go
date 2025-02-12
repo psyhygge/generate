@@ -76,8 +76,15 @@ func (g *GoStrategy) MapDataType(unifiedType string) string {
 	}
 }
 
-func (g *GoStrategy) GetModelTemplateData() string {
-	return dbstrategy.GoModelTemplate
+func (g *GoStrategy) GetModelTemplateData(fileModel string) string {
+	switch fileModel {
+	case "mapper":
+		return dbstrategy.GoModelTemplate
+	case "entity":
+		return ""
+	default:
+		return ""
+	}
 }
 
 func NewGoStrategy() ilangface.ILanguageStrategy {

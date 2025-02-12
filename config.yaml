@@ -1,11 +1,13 @@
 database:
   type: mysql
-  dsn: "root:123456@tcp(localhost:3306)/database?charset=utf8mb4&parseTime=True&loc=Local"
+  dsn: "root:psyhygge@tcp(localhost:3306)/go_gateway?charset=utf8mb4&parseTime=True&loc=Local"
 output:
   language: java # go java
-  models_dir: ./output_models # 生成的文件存放目录
+  package_name: com.artist.gateway.entity
+  file_model: entity # entity 或 mapper
+  models_dir: ./output_models
   naming_style: PascalCase # camelCase 或 PascalCase
-  file_naming_style: camelCase # camelCase 或 snakeCase
-  tables:   # 可选：指定要生成的表 为空则查询所有表
-    - table_name
-    - other_table_name
+  file_naming_style: PascalCase # camelCase 或 snakeCase 或 PascalCase
+  tables:   # 可选：指定要生成的表 为空则查询全部表
+    - gateway_service_grpc_rule
+    - gateway_service_access_control

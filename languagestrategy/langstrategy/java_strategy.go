@@ -35,8 +35,15 @@ func (j *JavaStrategy) MapDataType(unifiedType string) string {
 	}
 }
 
-func (j *JavaStrategy) GetModelTemplateData() string {
-	return dbstrategy.JavaModelTemplate
+func (j *JavaStrategy) GetModelTemplateData(fileModel string) string {
+	switch fileModel {
+	case "mapper":
+		return dbstrategy.JavaDaoModelTemplate
+	case "entity":
+		return dbstrategy.JavaEntityModelTemplate
+	default:
+		return ""
+	}
 }
 
 func (j *JavaStrategy) GetFields(columns []db.ColumnInfo, namingStyle string) []interface{} {

@@ -35,7 +35,7 @@ func (t *{{.StructName}}) Delete(c *gin.Context, tx *gorm.DB) error {
 	return tx.WithContext(c).Delete(t).Error
 }
 `
-	JavaModelTemplate = `package {{.PackageName}};
+	JavaEntityModelTemplate = `package {{.PackageName}};
 
 import lombok.Data;
 
@@ -46,6 +46,15 @@ public class {{.StructName}} implements Serializable {
     {{range .Fields}}
     private {{.Type}} {{.Name}};{{if .Comment}} // {{.Comment}}{{end}}
     {{end}}
+}
+`
+	JavaDaoModelTemplate = `package {{.PackageName}};
+
+import org.apache.ibatis.annotations.Mapper;
+
+@Mapper
+public interface {{.StructName}}Mapper extends BaseMapper<{{.StructName}}> {
+
 }
 `
 )
