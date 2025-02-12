@@ -123,8 +123,8 @@ func main() {
 			config.Output.FileNamingStyle = value
 		})
 
-		// 9. 表选择框 (假设从数据库中获取的表)
-		// 示例：提供一个简单的表格选择框，实际中可以通过数据库查询动态加载
+		// 9. 表选择框 (从数据库中获取的表)
+		// 通过数据库查询动态加载
 		tables, _ := dbStrategy.GetTables(nil)
 		tablesSelect := widget.NewCheckGroup(tables, func(value []string) {
 			config.Output.Tables = value
