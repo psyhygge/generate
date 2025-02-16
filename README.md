@@ -3,6 +3,6 @@
 
 目前v0.1版本，只实现了mysql-->go dao层的生成 和 mysql-->java entity&mapper 生成
 
-可下载generate.exe可执行文件进行代码生成
+可下载generateCode.exe可执行文件进行代码生成
 
 后续会持续迭代
