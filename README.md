@@ -6,3 +6,5 @@
 可下载generateCode.exe可执行文件进行代码生成
 
 后续会持续迭代
+
+若要自定义生成方法，可选择性实现IDatabaseStrategy, ILanguageStrategy, ICodeGenerator, 然后调用Executer执行器生成
